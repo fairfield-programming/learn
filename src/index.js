@@ -16,7 +16,11 @@ app.use(require("cors")({ origin: "*" }));
 // Endpoints
 app.get("/", require('./routes/index'));
 
+app.get("/article/", require("./routes/article/verified"));
+app.get("/article/unverified", require("./routes/article/unverified"));
+
 app.get("/article/:id", require("./routes/article/id"));
+app.get("/article/:id/safe", require("./routes/article/safe"));
 
 // Sync the Database
 (async () => {
