@@ -1,9 +1,9 @@
 module.exports = (sequelize, DataTypes) => sequelize.define(
-    'Question',
+    'Article',
     {
       title: DataTypes.TEXT,
       body: DataTypes.TEXT,
-      user: DataTypes.INTEGER
+      user: DataTypes.INTEGER,
+      verified: DataTypes.BOOLEAN
     },
   );
-  

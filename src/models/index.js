@@ -43,24 +43,16 @@ if (env === "development") {
 }
 
 // Import Models
-const Question = require("./question");
-const Answer = require("./answer");
-const Comment = require("./comment");
+const Article = require("./article");
+const Course = require("./course");
 
 // Define Models
-global.Question = Question(sequelize, DataTypes);
-global.Answer = Answer(sequelize, DataTypes);
-global.Comment = Comment(sequelize, DataTypes);
+global.Article = Article(sequelize, DataTypes);
+global.Course = Course(sequelize, DataTypes);
 
 // Setup Relationships
-global.Question.hasMany(global.Answer);
-global.Answer.belongsTo(global.Question);
-
-global.Question.hasMany(global.Comment);
-global.Comment.belongsTo(global.Question);
-
-global.Answer.hasMany(global.Comment);
-global.Comment.belongsTo(global.Answer);
+global.Course.hasMany(global.Article);
+global.Article.belongsTo(global.Course);
 
 global.sequelize = sequelize;
 global.Sequelize = Sequelize;
