@@ -16,6 +16,8 @@ app.use(require("cors")({ origin: "*" }));
 // Endpoints
 app.get("/", require('./routes/index'));
 
+app.get("/course/:id", require("./routes/course/id"));
+
 app.get("/article/", require("./routes/article/verified"));
 app.get("/article/unverified", require("./routes/article/unverified"));
 
