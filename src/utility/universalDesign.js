@@ -66,7 +66,7 @@ function falseCognate(words, scope) {
             scope.push({
                 ...word,
                 reason: 'COGNATE',
-                description: `The word "${word.text.toLowerCase()}", sounds a lot like "${cognate[0]}"; a ${cognate[2]} word that means ${cognate[1]}.`
+                description: `The word "${word.text.toLowerCase()}", sounds a lot like "${cognate[0]}"; a ${cognate[2]} word that means ${cognate[1]}. This may be confusing for those who speak ${cognate[2]}, so consider removing it.`
             });
 
         }
