@@ -1,4 +1,5 @@
 // https://www.edutopia.org/article/using-universal-design-create-better-assessments
+// https://www.plainlanguage.gov/guidelines/words/use-simple-words-phrases/
 
 const fs = require('fs');
 
@@ -24,7 +25,93 @@ function generalUniversalDesignCheck(words) {
 
 function languageSkills(words, scope) {
 
+    // Lower the level of the language. Make it so that its more basic to understand.
 
+    let tokens = tokenizeWords(words);
+    const skillText = fs.readFileSync(process.cwd() + "/res/skillValues.txt", 'utf8');
+    let skills = {};
+
+    let targetLevel = 8;
+    let maxDifference = 1;
+
+    skillText.split("\n").forEach((area) => {
+
+        let segments = area.split(",");
+        let jumpers = [];
+
+        jumpers.push(
+            parseInt(
+                segments[1].trim()
+            )
+        );
+
+        for (let i = 2; i < segments.length; i++) {
+            const segment = segments[i];
+
+            jumpers.push(
+                parseInt(
+                    segment.trim()
+                ) 
+            );
+            
+        }
+
+        skills[segments[0].trim().toUpperCase()] = jumpers;
+
+        // WORD = [ RANK, ...SUGGESTION INDEXES ]
+
+
+
+    });
+
+    tokens.forEach(word => {
+
+        let skill = skills[word.text];
+
+        if (skill == undefined) return;
+
+        let level = skill[0];
+
+        if (level > targetLevel - maxDifference && level < targetLevel + maxDifference) {
+
+            // word is in the correct level, dont add to scope
+
+        } else {
+
+            // new word is needed, find the nearest word
+            let closest = null;
+            let closestDistance = Math.abs(targetLevel - level);
+
+            let items = skill.slice(1)
+
+            items.forEach((index) => {
+                
+                let item = skills[Object.keys(skills)[index - 1]]
+                let itemName = Object.keys(skills)[index - 1];
+
+                let itemDistance = targetLevel - item[0];
+
+                if (closestDistance > itemDistance) {
+
+                    closest = itemName;
+                    closestDistance = itemDistance;
+
+                }
+
+            })
+
+            if (closestDistance >= Math.abs(targetLevel - level)) return;
+
+            scope.push({
+                ...word,
+                reason: "READING LEVEL",
+                description: `The word or phrase, "${word.text.toLowerCase()}", doesn't match the targeted reading level. Try using "${closest.toLowerCase()}", instead.`,
+                fix: closest
+            });
+
+        }
+        
+    });
 
     return scope;
 
