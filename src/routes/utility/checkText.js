@@ -7,6 +7,7 @@ module.exports = (req, res) => {
     const scope = universal.generalUniversalDesignCheck(req.body.text);
 
     return res.status(200).json({
+        text: req.body.text,
         score: 100 - scope.length,
         scope
     });
