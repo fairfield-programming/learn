@@ -5,6 +5,7 @@ function generalGrammarCheck(words) {
     let scope = [];
 
     sentenceCapitalization(words, scope);
+    neitherNor(words, scope);
 
     return scope;
 
@@ -37,6 +38,40 @@ function sentenceCapitalization(words, scope) {
 
         // need +1 for the periods
         i += _sentence.length + 1;
+
+    });
+
+    return scope;
+
+}
+
+function neitherNor(words, scope) {
+
+    let sentences = words.split('.');
+    let i = 0;
+
+    sentences.forEach(sentence => {
+       
+        let neitherIndex = sentence.toUpperCase().indexOf('NEITHER');
+        let orIndex = sentence.toUpperCase().indexOf('OR');
+
+        if (orIndex != -1 && neitherIndex != -1) {
+
+            if (orIndex > neitherIndex) {
+                
+                // neither or detected
+                scope.push({
+                    reason: "NEITHER NOR",
+                    description: `In a sentence, you should say 'neither/nor' instead of 'neither/or'.`,
+                    fix: "nor",
+                    text: "or",
+                    start: orIndex,
+                    end: orIndex + 2,
+                });
+
+            }
+
+        }
 
     });
 
