@@ -1,3 +1,5 @@
+const scoring = require('../../utility/scoring');
+
 const universal = require('../../utility/universalDesign');
 const grammar = require('../../utility/grammar');
 
@@ -10,9 +12,11 @@ module.exports = (req, res) => {
         ...grammar.generalGrammarCheck(req.body.text) 
     ];
 
+    let scores = scoring.generateGeneralData(scope);
+
     return res.status(200).json({
         text: req.body.text,
-        score: 100 - scope.length,
+        score: scores,
         scope
     });
 

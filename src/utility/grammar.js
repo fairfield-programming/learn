@@ -57,12 +57,14 @@ function neitherNor(words, scope) {
 
         if (orIndex != -1 && neitherIndex != -1) {
 
+            if (sentence.toUpperCase().indexOf('NOR') + 1 == orIndex) return; // ITS A TRAP!!!
+
             if (orIndex > neitherIndex) {
                 
                 // neither or detected
                 scope.push({
                     reason: "NEITHER NOR",
-                    description: `In a sentence, you should say 'neither/nor' instead of 'neither/or'.`,
+                    description: `Replace with 'nor'.`,
                     fix: "nor",
                     text: "or",
                     start: orIndex,
