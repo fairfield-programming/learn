@@ -25,6 +25,7 @@ app.get("/article/:id", require("./routes/article/id"));
 app.get("/article/:id/safe", require("./routes/article/safe"));
 
 app.post("/utility/text", require("./routes/utility/checkText"));
+app.post("/utility/markdown/meta", require("./routes/utility/markdownMeta"));
 
 // Sync the Database
 (async () => {
