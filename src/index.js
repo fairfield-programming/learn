@@ -13,6 +13,24 @@ const port = process.env.PORT || 8080;
 app.use(express.json());
 app.use(require("cors")({ origin: "*" }));
 
+// Custom Middleware
+app.use((req, res, next) => {
+  
+  let header = req.get("Authorization") || "";
+  let parts = header.split(" ");
+  
+  if (parts.length != 2) return res.status(403).send("Not Logged In.");
+  
+  let token = parts[1];
+  
+  verify(token, process.env.JWT_KEY, (err, userData) => {
+    if (err) return res.status(400).send(err.message);
+    req.user = userData;
+    next();
+  })
+  
+});
+
 // Endpoints
 app.get("/", require('./routes/index'));
 

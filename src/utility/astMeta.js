@@ -67,7 +67,7 @@ function getDaleChall(markdownData, { sentenceCount, words }) {
 
     words.forEach(element => {
 
-        if (!easyWordsList.includes(element)) difficultWordCount++;
+        if (!easyWordsList.includes(element.toLowerCase())) difficultWordCount++;
 
     });
 
