@@ -12,19 +12,28 @@ module.exports = (req, res) => {
 
     // NEED TO CONVERT THE MARKDOWN INTO PARAGRAPHS AND CHECK THOSE INDIVIDUALLY 
 
-    const scope = [ 
-        ...universal.generalUniversalDesignCheck(req.body.text), 
-        ...grammar.generalGrammarCheck(req.body.text) 
-    ];
+    let scope = [];
+    const mdText = markdown(
+        req.body.text
+    )
+
+    mdText.ast.forEach(element => {
+
+        if (element.type == 'block-code') return;
+
+        console.log(element);
+
+        scope.push(...universal.generalUniversalDesignCheck(element.data));
+        scope.push(...grammar.generalGrammarCheck(element.data));
+
+    })
 
     let scores = scoring.generateGeneralData(scope);
 
     return res.status(200).json({
         text: req.body.text,
         ...meta.getGeneralMetadata(
-            markdown(
-                req.body.text
-            )
+            mdText
         ),
         score: scores,
         scope
