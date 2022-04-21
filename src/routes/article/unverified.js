@@ -2,7 +2,7 @@ module.exports = (req, res) => {
 
     Article.findAll({
         where: {
-            verified: false
+            status: 1
         }
     }).then((data) => {
 

@@ -4,6 +4,6 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       title: DataTypes.TEXT,
       body: DataTypes.TEXT,
       user: DataTypes.INTEGER,
-      verified: DataTypes.BOOLEAN
+      status: DataTypes.INTEGER
     },
   );

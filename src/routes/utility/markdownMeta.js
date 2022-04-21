@@ -21,8 +21,6 @@ module.exports = (req, res) => {
 
         if (element.type == 'block-code') return;
 
-        console.log(element);
-
         scope.push(...universal.generalUniversalDesignCheck(element.data));
         scope.push(...grammar.generalGrammarCheck(element.data));
 
