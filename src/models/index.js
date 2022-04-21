@@ -51,8 +51,8 @@ global.Article = Article(sequelize, DataTypes);
 global.Course = Course(sequelize, DataTypes);
 
 // Setup Relationships
-global.Course.hasMany(global.Article);
-global.Article.belongsTo(global.Course);
+global.Course.belongsToMany(global.Article, { through: 'courseArticles' });
+global.Article.belongsToMany(global.Course, { through: 'courseArticles' });
 
 global.sequelize = sequelize;
 global.Sequelize = Sequelize;

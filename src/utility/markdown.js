@@ -70,11 +70,72 @@ function parseMarkdownToAST(text) {
 
     }
 
+    if (scope.state == 2) {
+
+        scope.ast.push({ type: 'h1', data: scope.buffer }); 
+        scope.buffer = "";
+
+    }
+
+    if (scope.state == 4) {
+
+        scope.ast.push({ type: 'h2', data: scope.buffer }); 
+        scope.buffer = "";
+
+    }
+
+    if (scope.state == 6) {
+
+        scope.ast.push({ type: 'h3', data: scope.buffer }); 
+        scope.buffer = "";
+
+    }
+
+    if (scope.state == 8) {
+
+        scope.ast.push({ type: 'h4', data: scope.buffer }); 
+        scope.buffer = "";
+
+    }
+
+    if (scope.state == 10) {
+
+        scope.ast.push({ type: 'h5', data: scope.buffer }); 
+        scope.buffer = "";
+
+    }
+
+    if (scope.state == 12) {
+
+        scope.ast.push({ type: 'h6', data: scope.buffer }); 
+        scope.buffer = "";
+
+    }
+
+    if (scope.state == 17 || scope.state == 16) {
+
+        scope.ast.push({ type: 'code-block', data: scope.buffer }); 
+        scope.buffer = "";
+
+    }
+
     return {
         errors: scope.errors,
-        ast: scope.ast,
+        ast: cleanAST(scope.ast),
         text
     };
+
+}
+
+function cleanAST(ast) {
+
+    return ast.filter((element) => {
+
+        if (element.data.trim() == "") return false;
+
+        return true;
+
+    })
 
 }
 

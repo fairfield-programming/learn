@@ -2,6 +2,7 @@ require('dotenv').config();
 
 // Configure Imports
 const express = require('express');
+const { verify } = require('jsonwebtoken');
 const { Sequelize } = require('sequelize');
 const models = require('./models');
 
@@ -14,7 +15,7 @@ app.use(express.json());
 app.use(require("cors")({ origin: "*" }));
 
 // Custom Middleware
-app.use((req, res, next) => {
+const authMiddleware = (req, res, next) => {
   
   let header = req.get("Authorization") || "";
   let parts = header.split(" ");
@@ -29,7 +30,7 @@ app.use((req, res, next) => {
     next();
   })
   
-});
+};
 
 // Endpoints
 app.get("/", require('./routes/index'));
@@ -41,6 +42,8 @@ app.get("/article/unverified", require("./routes/article/unverified"));
 
 app.get("/article/:id", require("./routes/article/id"));
 app.get("/article/:id/safe", require("./routes/article/safe"));
+app.post("/article/:id/update", require("./routes/article/update"));
+app.post("/article/create", authMiddleware, require('./routes/article/create'));
 
 app.post("/utility/text", require("./routes/utility/checkText"));
 app.post("/utility/markdown/meta", require("./routes/utility/markdownMeta"));
