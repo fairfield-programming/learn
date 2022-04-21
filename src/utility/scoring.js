@@ -24,7 +24,16 @@ function generateTotalScore({ grammar, universalDesign }) {
 
 function generateGrammarScore(scope) {
 
-    return 100;
+    let score = 100;
+
+    scope.forEach(element => {
+        
+        if (element.name == "NEITHER NOR") score -= 1;
+        if (element.name == "CAPITALIZE SENTENCE START") score -= 5;
+
+    });
+
+    return score;
 
 }
 

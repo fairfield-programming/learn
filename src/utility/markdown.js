@@ -39,9 +39,12 @@ function parseMarkdownToAST(text) {
 
             scope.globalVars.isFileStart = false;
 
-            if (text[i] == " " || text[i] == "\n") continue;
-            if (text[i] == "#") { scope.state = 1; continue; }
-            if (text[i] == "`") { scope.state = 14; continue; }
+            if (text[i] == "#") { scope.state = 1; scope.ast.push({ type: 'p', data: scope.buffer }); scope.buffer = ""; continue; }
+            if (text[i] == "`") { scope.state = 14; scope.ast.push({ type: 'p', data: scope.buffer }); scope.buffer = ""; continue; }
+
+            scope.buffer += text[i];
+
+            continue;
 
         }
 
@@ -57,6 +60,13 @@ function parseMarkdownToAST(text) {
         if (scope.state == 15) { scope = codeHeaderState(scope); continue; }
         if (scope.state == 16) { scope = codeMiddleState(scope); continue; }
         if (scope.state == 17) { scope = codeEndState(scope); continue; }
+
+    }
+
+    if (scope.state == 0) {
+
+        scope.ast.push({ type: 'p', data: scope.buffer }); 
+        scope.buffer = "";
 
     }
 
@@ -247,42 +257,4 @@ function codeEndState(thruData) {
 
 }
 
-console.log(require('./astMeta').getGeneralMetadata(parseMarkdownToAST(`
-
-# This is a heading
-
-## This is a subheading
-
-### This is a subsubheading
-
-#### This is a subsubsubheading
-
-##### This is a subsubsubsubheading
-
-###### This is a h6
-
-####### ERR003
-
-#ERR001
-#  ERR002
-
-\`\`\`javascript
-
-function printTest() {
-
-    console.log("This is a test");
-
-}
-
-\`\`\`
-
-\`\`\`{"language": "python"}
-
-def hello_world():
-    print("hello_world");
-
-hello_world();
-
-\`\`\`
-
-`)));
+module.exports = parseMarkdownToAST;
