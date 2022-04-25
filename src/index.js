@@ -42,6 +42,7 @@ app.get("/article/unverified", require("./routes/article/unverified"));
 
 app.get("/article/:id", require("./routes/article/id"));
 app.get("/article/:id/safe", require("./routes/article/safe"));
+app.get("/article/:id/possibleCourses", require("./routes/article/suggestedCoursesForArticle"))
 app.post("/article/:id/update", require("./routes/article/update"));
 app.post("/article/create", authMiddleware, require('./routes/article/create'));
 

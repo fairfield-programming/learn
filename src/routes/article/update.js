@@ -13,8 +13,8 @@ module.exports = (req, res) => {
         }
     }).then((data) => {
 
-        if (data.status > 1) return res.status(409).json({ error: "Can't Update Live Article." });
         if (data == null || data == undefined) return res.status(404).json({ error: "Not Found." });
+        if (data.status > 1) return res.status(409).json({ error: "Can't Update Live Article." });
         
         data.update({
             title: metadata.likelyTitle,

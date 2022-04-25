@@ -1,4 +1,4 @@
-const markdown = require('../../utility/markdown');
+const metadata = require('../../utility/advancedMeta');
 
 module.exports = (req, res) => {
 
@@ -12,12 +12,21 @@ module.exports = (req, res) => {
 
         if (data == null || data == undefined) return res.status(404).json({ error: "Not Found." });
         
-        const markdownData = markdown(data.body);
+        const text = data.body;
+        const meta = metadata(text);
+        let course = [];
 
-        return res.json({
-            ...data.dataValues,
-            markdown: markdownData.ast
+        meta.languages.forEach(language => {
+
+            if (language.length == 0) return;
+
+            course.push(
+                `${language[0].toUpperCase()}${language.slice(1).toLowerCase()} for Beginners`
+            );
+            
         });
+
+        return res.json(course);
 
     }).catch((error) => {
 
