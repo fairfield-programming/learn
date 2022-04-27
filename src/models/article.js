@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
     {
       title: DataTypes.TEXT,
       body: DataTypes.TEXT,
-      user: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
+      username: DataTypes.STRING,
       status: DataTypes.INTEGER
     },
   );

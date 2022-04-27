@@ -9,7 +9,8 @@ module.exports = (req, res) => {
     Article.create({
         title: metadata.likelyTitle,
         body: metadata.text,
-        user: req.user.id,
+        userId: req.user.id,
+        username: req.user.username,
         status: 0,
     }).then((data) => {
 

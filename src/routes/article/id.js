@@ -11,7 +11,8 @@ module.exports = (req, res) => {
     }).then((data) => {
 
         if (data == null || data == undefined) return res.status(404).json({ error: "Not Found." });
-        if (data.status == 0) return res.status(404).json({ error: "Not Verified Yet." });
+        if (data.status == 0) return res.status(404).json({ error: "Not Found." });
+        if (data.status == 1) return res.status(404).json({ error: "Not Verified." });
 
         const markdownData = markdown(data.body);
 
