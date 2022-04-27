@@ -12,6 +12,7 @@ module.exports = (req, res) => {
         userId: req.user.id,
         username: req.user.username,
         status: 0,
+        thumbnail: metadata.thumbnail || "https://source.unsplash.com/random"
     }).then((data) => {
 
         return res.json(data);

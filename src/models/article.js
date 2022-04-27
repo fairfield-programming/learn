@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       body: DataTypes.TEXT,
       userId: DataTypes.INTEGER,
       username: DataTypes.STRING,
-      status: DataTypes.INTEGER
+      status: DataTypes.INTEGER,
+      thumbnail: DataTypes.TEXT
     },
   );
