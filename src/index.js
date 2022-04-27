@@ -48,6 +48,7 @@ app.post("/article/create", authMiddleware, require('./routes/article/create'));
 
 app.post("/utility/text", require("./routes/utility/checkText"));
 app.post("/utility/markdown/meta", require("./routes/utility/markdownMeta"));
+app.post("/utility/markdown", require("./routes/utility/markdown"));
 
 // Sync the Database
 (async () => {

@@ -6,6 +6,8 @@ const scoring = require('./scoring');
 const universal = require('./universalDesign');
 const grammar = require('./grammar');
 
+const thumbnails = require('./thumbnails');
+
 module.exports = (text) => {
 
     let scope = [];
@@ -30,7 +32,8 @@ module.exports = (text) => {
             mdText
         ),
         score: scores,
-        scope
+        scope,
+        thumbnail: thumbnails.getThumbnailUrlFromMarkdown(mdText.ast)
     };
 
 }

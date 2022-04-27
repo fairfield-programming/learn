@@ -41,6 +41,8 @@ function parseMarkdownToAST(text) {
 
             if (text[i] == "#") { scope.state = 1; scope.ast.push({ type: 'p', data: scope.buffer }); scope.buffer = ""; continue; }
             if (text[i] == "`") { scope.state = 14; scope.ast.push({ type: 'p', data: scope.buffer }); scope.buffer = ""; continue; }
+            if (text[i] == "\n") { scope.state = 0; scope.ast.push({ type: 'p', data: scope.buffer }); scope.buffer = ""; continue; }
+            if (text[i] == "!" && scope.buffer == "") { scope.state = 18; continue; }
 
             scope.buffer += text[i];
 
@@ -60,6 +62,8 @@ function parseMarkdownToAST(text) {
         if (scope.state == 15) { scope = codeHeaderState(scope); continue; }
         if (scope.state == 16) { scope = codeMiddleState(scope); continue; }
         if (scope.state == 17) { scope = codeEndState(scope); continue; }
+        if (scope.state == 18) { scope = imageAltState(scope); continue; }
+        if (scope.state == 19) { scope = imageSrcState(scope); continue; }
 
     }
 
@@ -115,6 +119,19 @@ function parseMarkdownToAST(text) {
     if (scope.state == 17 || scope.state == 16) {
 
         scope.ast.push({ type: 'code-block', data: scope.buffer }); 
+        scope.buffer = "";
+
+    }
+
+    if (scope.state == 18) {
+        
+        scope.buffer = "";
+
+    }
+
+    if (scope.state == 19) {
+
+        scope.ast.push({ type: 'img', src: scope.buffer, alt: scope.globalVars.alt })
         scope.buffer = "";
 
     }
@@ -313,6 +330,51 @@ function codeEndState(thruData) {
     if (text[i] == '`') { thruData.state = 17; return thruData; }
 
     thruData.state = 0;
+
+    return thruData;
+
+}
+
+// State 18
+function imageAltState(thruData) {
+
+    let { i, state, text, buffer, globalVars, errors } = thruData;
+
+    if (text[i] == '(') { 
+        
+        thruData.globalVars.alt = buffer.slice(1, buffer.length - 1);
+        thruData.buffer = "";
+        thruData.state = 19; 
+        return thruData; 
+
+    }
+
+    thruData.buffer += text[i];
+
+    return thruData;
+
+}
+
+// State 19
+function imageSrcState(thruData) {
+
+    let { i, state, text, buffer, globalVars, errors } = thruData;
+
+    if (text[i] == ')') { 
+        
+        thruData.ast.push({
+            type: 'img',
+            src: buffer,
+            alt: globalVars.alt,
+            data: buffer,
+        })
+        thruData.buffer = "";
+        thruData.state = 0; 
+        return thruData; 
+
+    }
+
+    thruData.buffer += text[i];
 
     return thruData;
 
