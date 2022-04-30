@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>%BOOK_NAME%</title>
+  </head>
+  <body>
+    <style>
+      body,
+      html {
+        margin: 0px;
+        padding: 0px;
+      }
+
+      .cover_page {
+        position: relative;
+        box-sizing: border-box;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        top: 0px;
+        width: 100vw;
+        height: 100vh;
+        background: #fff;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+        flex-direction: column;
+        font-family: Futura;
+        padding: 20% 10%;
+      }
+
+      .cover_page h1 {
+        font-size: 52pt;
+        width: 60vw;
+        color: #0f006c;
+        font-weight: 300;
+        margin: 0px;
+      }
+
+      .cover_page h3 {
+        font-size: 24pt;
+        width: 60vw;
+        color: #0f006c;
+        margin: 0px;
+        margin-top: 20px;
+        font-weight: 300;
+      }
+
+      .cover_page svg {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+
+      .table_of_contents {
+        box-sizing: border-box;
+        position: relative;
+        width: 100vw;
+        page-break-after: always;
+        padding: 10%;
+      }
+
+      .table_of_contents h1 {
+        font-family: Futura;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 18pt;
+      }
+
+      .table_of_contents ol {
+        font-family: Helvetica, sans-serif;
+        text-align: left;
+        text-transform: capitalize;
+        font-size: 14pt;
+        font-weight: 100;
+        line-height: 1.6;
+      }
+
+      .table_of_contents ol ol {
+        list-style: lower-alpha;
+      }
+
+      .back_page {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        padding: 10%;
+        box-sizing: border-box;
+      }
+
+      .back_page p {
+        width: 90%;
+        margin: 0px 5%;
+        text-align: justify;
+        line-height: 1.6;
+        font-family: Helvetica, sans-serif;
+        font-weight: 100;
+        font-size: 10pt;
+      }
+
+      .back_page h1 {
+        font-family: Futura;
+        width: 90%;
+        margin: 0px 5%;
+        text-align: center;
+        font-weight: 100;
+        font-size: 24pt;
+        margin-bottom: 5%;
+      }
+
+      .back_page .logos {
+        position: absolute;
+        left: 10%;
+        right: 10%;
+        bottom: 5%;
+        width: 80%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+      }
+    </style>
+    <div class="cover_page">
+      <svg viewBox="0 0 420 595" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_103_2)">
+          <rect
+            x="120"
+            y="-179"
+            width="600"
+            height="30"
+            transform="rotate(30 120 -179)"
+            fill="#0F006C"
+          />
+          <rect
+            x="90"
+            y="-127"
+            width="600"
+            height="30"
+            transform="rotate(30 90 -127)"
+            fill="#0F006C"
+          />
+          <rect
+            x="33"
+            y="-92"
+            width="600"
+            height="30"
+            transform="rotate(30 33 -92)"
+            fill="#0F006C"
+          />
+          <rect
+            x="3"
+            y="-40"
+            width="600"
+            height="30"
+            transform="rotate(30 3 -40)"
+            fill="#0F006C"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_103_2">
+            <rect width="420" height="595" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+
+      <h1>%BOOK_NAME%</h1>
+      <h3>%BOOK_EDITION%</h3>
+    </div>
+    <div class="table_of_contents">
+      <h1>Table of Contents</h1>
+      <section>
+        <ol>
+          <li>HyperText Markup Language</li>
+          <ol>
+            <li>Basic Syntax</li>
+            <li>Learning about Elements</li>
+          </ol>
+        </ol>
+      </section>
+    </div>
+    <div class="back_page">
+      <h1>%BOOK_NAME%</h1>
+      <p>%BOOK_DESCRIPTION%</p>
+      <div class="logos">
+        <img
+          class="isbn"
+          src="https://fairfieldprogramming.org/full.svg"
+          alt="FPA Logo"
+        />
+        <img
+          class="isbn"
+          height="80px"
+          src="https://barcode.tec-it.com/barcode.ashx?data=442144241&code=ISBN13"
+          alt="ISBN Number"
+        />
+      </div>
+    </div>
+  </body>
+</html>

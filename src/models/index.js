@@ -45,10 +45,12 @@ if (env === "development") {
 // Import Models
 const Article = require("./article");
 const Course = require("./course");
+const Book = require("./book");
 
 // Define Models
 global.Article = Article(sequelize, DataTypes);
 global.Course = Course(sequelize, DataTypes);
+global.Book = Book(sequelize, DataTypes);
 
 // Setup Relationships
 global.Course.belongsToMany(global.Article, { through: 'courseArticles' });

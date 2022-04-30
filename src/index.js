@@ -37,6 +37,10 @@ app.get("/", require('./routes/index'));
 
 app.get("/course/:id", require("./routes/course/id"));
 
+app.get("/book/create", require("./routes/book/create"));
+app.get("/book/:id/", require("./routes/book/id"));
+app.get("/book/:id/generate", require("./routes/book/generate"));
+
 app.get("/article/", require("./routes/article/verified"));
 app.get("/article/unverified", require("./routes/article/unverified"));
 
